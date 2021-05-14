@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <EditText
+        android:id="@+id/txtPassword1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/txtPassword2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUserNameRegister" />
+
+    <EditText
+        android:id="@+id/txtPassword2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword1" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onBtnRegister_Clicked"
+        android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword2" />
+
+    <TextView
+        android:id="@+id/txtEnterPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter your password"
+        app:layout_constraintBottom_toTopOf="@+id/txtPassword1"
+        app:layout_constraintStart_toStartOf="@+id/txtPassword1" />
+
+    <TextView
+        android:id="@+id/txtReEnterPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter your password again"
+        app:layout_constraintBottom_toTopOf="@+id/txtPassword2"
+        app:layout_constraintStart_toStartOf="@+id/txtPassword2" />
+
+    <TextView
+        android:id="@+id/txtEnterUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter your username"
+        app:layout_constraintBottom_toTopOf="@+id/txtUserNameRegister"
+        app:layout_constraintStart_toStartOf="@+id/txtUserNameRegister" />
+
+    <EditText
+        android:id="@+id/txtUserNameRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/txtPassword1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBackRegister" />
+
+    <Button
+        android:id="@+id/btnBackRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onBtnBackRegister_Clicked"
+        android:text="Back"
+        app:icon="@drawable/abc_vector_test"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+</androidx.constraintlayout.widget.ConstraintLayout>
