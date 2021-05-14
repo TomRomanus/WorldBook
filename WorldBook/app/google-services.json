@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "23587062318",
+    "project_id": "worldbook-3cfa5",
+    "storage_bucket": "worldbook-3cfa5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23587062318:android:e8d7e1eb27049b505995bf",
+        "android_client_info": {
+          "package_name": "com.tomward.worldbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23587062318-ivgk891ocaopntnd8u29ukgsetojflpd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMWewUIno5tdbRLA0OGPS052HWmLiRqQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23587062318-ivgk891ocaopntnd8u29ukgsetojflpd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
