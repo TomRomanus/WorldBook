@@ -13,18 +13,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tomward.worldbook.R;
 
-public class GlobeManager  extends Fragment {
+public class GlobeManager extends AppCompatActivity {
 
     RecyclerView testList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_globe, container, false);
-
-
-
-
-
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_globe);
     }
+
+
+
+
+
+
+
 }

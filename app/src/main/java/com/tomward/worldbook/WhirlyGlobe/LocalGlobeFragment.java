@@ -13,6 +13,10 @@ import com.mousebird.maply.SamplingParams;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
 import com.tomward.worldbook.R;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +24,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class LocalGlobeFragment extends HelloGlobeFragment {
+
+    private Context context;
+
 
 
     @Override
@@ -50,6 +57,7 @@ public class LocalGlobeFragment extends HelloGlobeFragment {
         double longitude = -3.6704803 * Math.PI / 180;
         double zoom_earth_radius = 0.5;
         globeControl.animatePositionGeo(longitude, latitude, zoom_earth_radius, 1.0);
+        //drawVectors();
     }
 
     private File getMBTileAsset(String name) throws IOException {
@@ -73,4 +81,19 @@ public class LocalGlobeFragment extends HelloGlobeFragment {
 
         return of;
     }
+
+    public void setContext(Context context){
+
+    }
+
+   /* private void drawVectors(){
+        try{
+            //Context context = getApplicationContext();
+            FileProcessor fp = new FileProcessor(getApplicationContext());
+            JSONObject geo =  fp.parseFileToJSON("assets/geojson/countries.geojson");
+        }
+        catch (Exception e){
+            e.printStackTrace();;
+        }
+    }*/
 }
