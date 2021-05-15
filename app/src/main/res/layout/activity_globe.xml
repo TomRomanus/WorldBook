@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        android:name="com.tomward.worldbook.WhirlyGlobe.HelloGlobeFragment"
+        android:name="com.tomward.worldbook.WhirlyGlobe.LocalGlobeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="parent"
