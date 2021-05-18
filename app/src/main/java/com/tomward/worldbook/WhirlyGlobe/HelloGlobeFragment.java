@@ -1,18 +1,26 @@
 package com.tomward.worldbook.WhirlyGlobe;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mousebird.maply.BaseController;
 import com.mousebird.maply.GlobeMapFragment;
 import com.mousebird.maply.QuadImageLoader;
 import com.mousebird.maply.RemoteTileInfoNew;
 import com.mousebird.maply.RenderController;
 import com.mousebird.maply.SamplingParams;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
+import com.mousebird.maply.VectorInfo;
+import com.mousebird.maply.VectorObject;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.File;
+import java.util.Iterator;
 
 public class HelloGlobeFragment extends GlobeMapFragment {
 
@@ -64,5 +72,11 @@ public class HelloGlobeFragment extends GlobeMapFragment {
         double longitude = -3.6704803 * Math.PI / 180;
         double zoom_earth_radius = 0.5;
         globeControl.animatePositionGeo(longitude, latitude, zoom_earth_radius, 1.0);
+
+
     }
+public BaseController getBaseController(){
+        return globeControl;
+}
+
 }

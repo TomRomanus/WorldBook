@@ -2,8 +2,14 @@ package com.tomward.worldbook.WhirlyGlobe;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.mousebird.maply.BaseController;
+import com.mousebird.maply.VectorInfo;
+import com.mousebird.maply.VectorObject;
+import com.mousebird.maply.BaseController;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,6 +27,8 @@ import java.util.Iterator;
 
 public class FileProcessor extends AppCompatActivity {
     private Context context;
+    BaseController controller;
+
 
 
     public FileProcessor(Context context){
@@ -28,7 +36,7 @@ public class FileProcessor extends AppCompatActivity {
     }
     private JSONParser parser = new JSONParser();
 
-    public JSONObject parseFileToJSON(String path) throws FileNotFoundException {
+    public JSONArray parseFileToJSON(String path) throws FileNotFoundException {
         try{
             //JSONObject obj = (JSONObject) parser.parse(new FileReader(path));
             //Context context = getApplicationContext();
@@ -41,14 +49,9 @@ public class FileProcessor extends AppCompatActivity {
                 return null;
             }
             JSONArray countryObjects = (JSONArray) obj.get("features");
-            Iterator<JSONObject> listIterator = countryObjects.iterator();
-            while (listIterator.hasNext()){
-                JSONObject country = listIterator.next();
-                JSONObject properties = (JSONObject) country.get("properties");
-                if(properties.get("ADMIN").equals("Belgium")){
-                    System.out.println(country);
-                }
-            }
+            return countryObjects;
+
+
 
 
         }catch (Exception e){
