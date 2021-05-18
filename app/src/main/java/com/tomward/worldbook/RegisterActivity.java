@@ -50,12 +50,13 @@ public class RegisterActivity extends AppCompatActivity {
         String UserName = txtUserName.getText().toString().toLowerCase().trim();
         String Password1 = txtPassword1.getText().toString().toLowerCase().trim();
         String Password2 = txtPassword2.getText().toString().toLowerCase().trim();
+        int Password = Password1.hashCode();
 
         if(UserName.equals("") || Password1.equals("") || Password2.equals("")) {
             Toast.makeText(RegisterActivity.this, "Please enter username and passwords", Toast.LENGTH_LONG).show();
         }
         else {
-            String registerURL = ADDUSER_URL + UserName + "/" + Password1;
+            String registerURL = ADDUSER_URL + UserName + "/" + Password;
             StringRequest registerRequest = new StringRequest(Request.Method.GET, registerURL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {

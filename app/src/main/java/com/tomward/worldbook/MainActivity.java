@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;
 
-    private String passwordDB = "";
+    private int passwordDB = -1;
     private String userName = "";
-    private String password = "";
+    private int password = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnLogin_Clicked(View caller) {
         userName = txtUserName.getText().toString().toLowerCase().trim();
-        password = txtPassword.getText().toString().toLowerCase().trim();
+        password = txtPassword.getText().toString().toLowerCase().trim().hashCode();
 
         String getUserURL = GETUSER_URL + userName;
         JsonArrayRequest getUserRequest = new JsonArrayRequest(Request.Method.GET,getUserURL,null,new Response.Listener<JSONArray>() {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 try {
                     JSONObject o = response.getJSONObject(0);
-                    passwordDB = o.getString("Password");
+                    passwordDB = o.getInt("Password");
                     checkPasswords();
                 } catch (JSONException e) {
                     Log.d(TAG, e.getMessage());
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPasswords() {
-        if(password.equals(passwordDB) && !password.equals("")) {
+        if(password == passwordDB && password != -1) {
             //Intent intent =new Intent(this, EnterCountryName.class);
             /*intent.putExtra("UserName", userName);
             startActivity(intent);*/
@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
-            String tekst = "password = " + passwordDB;
             Toast.makeText(MainActivity.this, "Wrong password, please try again", Toast.LENGTH_LONG).show();
         }
     }
