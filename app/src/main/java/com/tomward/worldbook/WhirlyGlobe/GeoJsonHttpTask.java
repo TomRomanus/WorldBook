@@ -9,7 +9,9 @@ import com.mousebird.maply.VectorObject;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.util.Iterator;
 
@@ -59,15 +61,35 @@ public class GeoJsonHttpTask extends AsyncTask<String, Void, String> {
     }
     @Override
     protected void onPostExecute(String json) {
-        VectorObject object = new VectorObject();
-        if (object.fromGeoJSON(json)) {
-            VectorInfo vectorInfo = new VectorInfo();
-            vectorInfo.setColor(Color.RED);
-            vectorInfo.setLineWidth(4.f);
-            controller.addVector(object, vectorInfo, BaseController.ThreadMode.ThreadAny);
+        System.out.println("Countries have been loaded");
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject obj = (JSONObject) parser.parse(json);
+            JSONArray countryObjects = (JSONArray) obj.get("features");
+            Iterator<JSONObject> listIterator = countryObjects.iterator();
+            while (listIterator.hasNext()){
+                JSONObject country = listIterator.next();
+                drawVector(country);
+            }
+            System.out.println("Finished drawing all countries");
         }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+
     }
 
+private void drawVector(JSONObject country){
+    System.out.println("We have drawn a country");
+    VectorObject object = new VectorObject();
+    if (object.fromGeoJSON(country.toJSONString())) {
+        VectorInfo vectorInfo = new VectorInfo();
+        vectorInfo.setColor(Color.RED);
+        vectorInfo.setLineWidth(4.f);
+        controller.addVector(object, vectorInfo, BaseController.ThreadMode.ThreadAny);
+    }
 
+}
 }
 

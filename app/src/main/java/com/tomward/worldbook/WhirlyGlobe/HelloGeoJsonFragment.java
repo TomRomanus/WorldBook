@@ -16,7 +16,7 @@ import com.mousebird.maply.VectorObject;
 
 import org.json.simple.JSONObject;
 
-public class HelloGeoJsonFragment extends HelloGlobeFragment {
+public class HelloGeoJsonFragment extends LocalGlobeFragment {
 
     @Override
     protected void controlHasStarted() {
@@ -27,7 +27,8 @@ public class HelloGeoJsonFragment extends HelloGlobeFragment {
         double zoom_earth_radius = 2.0;
         globeControl.animatePositionGeo(longitude, latitude, zoom_earth_radius, 1.0);
 
-        final String url = "https://s3.amazonaws.com/whirlyglobedocs/tutorialsupport/RUS.geojson";
+        //final String url = "https://s3.amazonaws.com/whirlyglobedocs/tutorialsupport/RUS.geojson";
+        final String url = "https://drive.google.com/uc?export=download&id=1bLwuQudsgLoTxNxDTJwREoWYY3B8FQWu";
 
         if (loadTask != null) {
             loadTask.cancel(true);
@@ -83,13 +84,14 @@ public class HelloGeoJsonFragment extends HelloGlobeFragment {
         super.onDestroy();
     }
 
-    public void drawVector(JSONObject jsonObject,BaseController controller){
+    public void drawVector(JSONObject jsonObject){
+
         VectorObject object = new VectorObject();
         if (object.fromGeoJSON(jsonObject.toJSONString())) {
             VectorInfo vectorInfo = new VectorInfo();
             vectorInfo.setColor(Color.RED);
             vectorInfo.setLineWidth(4.f);
-            controller.addVector(object, vectorInfo, BaseController.ThreadMode.ThreadAny);
+            globeControl.addVector(object, vectorInfo, BaseController.ThreadMode.ThreadAny);
         }
     }
     private GeoJsonHttpTask loadTask = null;

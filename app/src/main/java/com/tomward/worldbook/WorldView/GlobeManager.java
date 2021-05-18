@@ -33,28 +33,27 @@ public class GlobeManager extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_globe);
-        try {
-            FileProcessor fp = new FileProcessor(getApplicationContext());
-            JSONArray geo = fp.parseFileToJSON("assets/geojson/countries.geojson");
-            Iterator<JSONObject> listIterator = geo.iterator();
-            HelloGeoJsonFragment fragment = new HelloGeoJsonFragment();
-            BaseController baseController = fragment.getBaseController();
-            while (listIterator.hasNext()){
-                JSONObject country = listIterator.next();
-                /*JSONObject properties = (JSONObject) country.get("properties");
-                if(properties.get("ADMIN").equals("Belgium")){
-                    System.out.println(country);
-                }*/
-                fragment.drawVector(country,baseController);
-
-            }
-
-
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+//        try {
+//            FileProcessor fp = new FileProcessor(getApplicationContext());
+//            JSONArray geo = fp.parseFileToJSON("assets/geojson/countries.geojson");
+//            Iterator<JSONObject> listIterator = geo.iterator();
+//            HelloGeoJsonFragment fragment = new HelloGeoJsonFragment();
+//            while (listIterator.hasNext()){
+//                JSONObject country = listIterator.next();
+//                /*JSONObject properties = (JSONObject) country.get("properties");
+//                if(properties.get("ADMIN").equals("Belgium")){
+//                    System.out.println(country);
+//                }*/
+//                fragment.drawVector(country);
+//
+//            }
+//
+//
+//
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
 
     }
 
