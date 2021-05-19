@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorldBook">
         android:usesCleartextTraffic="true">
-        <activity android:name=".WorldView.EnterCountryName"></activity>
+        <activity android:name=".WorldView.CheckCountryName"></activity>
         <activity android:name=".CountyInfo.PicturesActivity" />
         <activity android:name=".CountyInfo.CountryActivity" />
         <activity android:name=".CountyInfo.AddPictureActivity" />

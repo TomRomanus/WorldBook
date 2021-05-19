@@ -49,9 +49,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
         try {
             StorageReference islandRef = storageRef.child(key + "/" + upload.getUrl());
-            final long FOUR_MEGABYTES = 1024 * 1024 * 4;
+            final long FIVE_MEGABYTES = 1024 * 1024 * 5;
 
-            islandRef.getBytes(FOUR_MEGABYTES).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            islandRef.getBytes(FIVE_MEGABYTES).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

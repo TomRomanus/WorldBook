@@ -19,7 +19,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.tomward.worldbook.R;
-import com.tomward.worldbook.WorldView.EnterCountryName;
+import com.tomward.worldbook.WorldView.CheckCountryName;
+import com.tomward.worldbook.WorldView.GlobeManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -125,7 +126,7 @@ public class CountryActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 switch (e) {
                     case 'B':
-                        Intent intentB = new Intent(context, EnterCountryName.class);
+                        Intent intentB = new Intent(context, GlobeManager.class);
                         intentB.putExtra("UserName", userName);
                         startActivity(intentB);
                         break;

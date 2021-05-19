@@ -16,7 +16,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.tomward.worldbook.WorldView.EnterCountryName;
+import com.tomward.worldbook.WorldView.CheckCountryName;
+import com.tomward.worldbook.WorldView.GlobeManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -99,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void goToNextActivity(String UserName){
-        Intent intent =new Intent(this, EnterCountryName.class);
+        Intent intent =new Intent(this, GlobeManager.class);
         intent.putExtra("UserName", UserName);
         startActivity(intent);
     }

@@ -15,7 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.tomward.worldbook.WorldView.EnterCountryName;
 import com.tomward.worldbook.WorldView.GlobeManager;
 
 import org.json.JSONArray;
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkPasswords() {
         if(password == passwordDB && password != -1) {
-            //Intent intent =new Intent(this, EnterCountryName.class);
+            //Intent intent =new Intent(this, CheckCountryName.class);
             /*intent.putExtra("UserName", userName);
             startActivity(intent);*/
             //setContentView(R.layout.activity_globe);

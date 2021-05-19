@@ -1,13 +1,9 @@
 package com.tomward.worldbook.WhirlyGlobe;
 
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import com.mousebird.maply.AttrDictionary;
 import com.mousebird.maply.BaseController;
@@ -17,14 +13,13 @@ import com.mousebird.maply.Point2d;
 import com.mousebird.maply.SelectedObject;
 import com.mousebird.maply.VectorInfo;
 import com.mousebird.maply.VectorObject;
-import com.tomward.worldbook.R;
-import com.tomward.worldbook.WorldView.EnterCountryName;
 import com.tomward.worldbook.WorldView.GlobeManager;
 
 import org.json.simple.JSONObject;
 
-public class HelloGeoJsonFragment extends LocalGlobeFragment {
+import java.util.ArrayList;
 
+public class HelloGeoJsonFragment extends HelloGlobeFragment {
 
 
     @Override

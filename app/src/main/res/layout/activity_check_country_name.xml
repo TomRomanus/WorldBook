@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WorldView.EnterCountryName">
+    tools:context=".WorldView.CheckCountryName">
 
     <Button
         android:id="@+id/btnBackCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onBtnBackEnterCountryName_Clicked"
+        android:onClick="onBtnBackCheckCountryName_Clicked"
         android:text="Back"
         app:icon="@drawable/abc_vector_test"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,7 +40,7 @@
         android:id="@+id/btnNextEnterCountryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onBtnNextEnterCountryName_Clicked"
+        android:onClick="onBtnNextCheckCountryName_Clicked"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
