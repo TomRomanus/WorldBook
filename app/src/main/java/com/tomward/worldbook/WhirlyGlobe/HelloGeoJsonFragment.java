@@ -1,9 +1,13 @@
 package com.tomward.worldbook.WhirlyGlobe;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.mousebird.maply.AttrDictionary;
 import com.mousebird.maply.BaseController;
@@ -13,10 +17,15 @@ import com.mousebird.maply.Point2d;
 import com.mousebird.maply.SelectedObject;
 import com.mousebird.maply.VectorInfo;
 import com.mousebird.maply.VectorObject;
+import com.tomward.worldbook.R;
+import com.tomward.worldbook.WorldView.EnterCountryName;
+import com.tomward.worldbook.WorldView.GlobeManager;
 
 import org.json.simple.JSONObject;
 
 public class HelloGeoJsonFragment extends LocalGlobeFragment {
+
+
 
     @Override
     protected void controlHasStarted() {
@@ -46,19 +55,27 @@ public class HelloGeoJsonFragment extends LocalGlobeFragment {
     public void userDidSelect(GlobeController globeControl, SelectedObject[] selObjs, Point2d loc, Point2d screenLoc) {
         super.userDidSelect(globeControl, selObjs, loc, screenLoc);
 
+        String adminName = null;
         String msg = "Selected feature count: " + selObjs.length;
         for (SelectedObject obj : selObjs) {
             // GeoJSON
             if (obj.selObj instanceof VectorObject) {
                 VectorObject vectorObject = (VectorObject) obj.selObj;
                 AttrDictionary attributes = vectorObject.getAttributes();
-                String adminName = attributes.getString("ADMIN");
+                adminName = attributes.getString("ADMIN");
                 msg += "\nVector Object: " + adminName;
                 addSelectedObject(vectorObject);
             }
         }
 
         Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+        if(adminName!= null) {
+            //go to next country
+            GlobeManager.setCountryName(adminName);
+//            String country = GlobeManager.countryName;
+//            country = adminName;
+        }
+
     }
 
     private void addSelectedObject(VectorObject vectorObject) {

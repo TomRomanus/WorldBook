@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.tomward.worldbook.WorldView.EnterCountryName;
 import com.tomward.worldbook.WorldView.GlobeManager;
 
 import org.json.JSONArray;
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             //setContentView(R.layout.activity_globe);
             try {
                 Intent intent = new Intent(this, GlobeManager.class);
+                intent.putExtra("UserName", userName);
                 startActivity(intent);
             }
             catch (Exception e){

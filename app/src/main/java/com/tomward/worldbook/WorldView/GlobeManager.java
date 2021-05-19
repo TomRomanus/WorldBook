@@ -27,12 +27,17 @@ import java.util.Iterator;
 
 public class GlobeManager extends AppCompatActivity {
 
-    private ArrayList<String> geojsons = new ArrayList<>(100);
+    public static String countryName;
+    public static String userName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle extras = getIntent().getExtras();
+        userName = extras.getString("UserName");
         setContentView(R.layout.activity_globe);
+
 //        try {
 //            FileProcessor fp = new FileProcessor(getApplicationContext());
 //            JSONArray geo = fp.parseFileToJSON("assets/geojson/countries.geojson");
@@ -56,7 +61,15 @@ public class GlobeManager extends AppCompatActivity {
 //        }
 
     }
+public static void setCountryName(String newCountryName)
+{
+    countryName = newCountryName;
+    System.out.println(countryName);
+}
+private void startCountryView()
+{
 
+}
 
 
 
