@@ -13,6 +13,7 @@ import com.tomward.worldbook.R;
 
 public class EnterCountryName extends AppCompatActivity {
     private String UserName = "";
+    private String countryName = "";
 
     private TextView txtCountryIn;
 
@@ -25,6 +26,8 @@ public class EnterCountryName extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         UserName = extras.getString("UserName");
+        countryName = extras.getString("CountryName");
+        txtCountryIn.setText(countryName);
     }
 
     public void onBtnNextEnterCountryName_Clicked(View caller) {

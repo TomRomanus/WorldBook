@@ -1,5 +1,7 @@
 package com.tomward.worldbook.WorldView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ public class GlobeManager extends AppCompatActivity {
 
     public static String countryName;
     public static String userName;
+    private static Context mContext;
 
 
     @Override
@@ -37,7 +40,7 @@ public class GlobeManager extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         userName = extras.getString("UserName");
         setContentView(R.layout.activity_globe);
-
+        mContext = this;
 //        try {
 //            FileProcessor fp = new FileProcessor(getApplicationContext());
 //            JSONArray geo = fp.parseFileToJSON("assets/geojson/countries.geojson");
@@ -61,14 +64,26 @@ public class GlobeManager extends AppCompatActivity {
 //        }
 
     }
-public static void setCountryName(String newCountryName)
+public static void  setCountryName(String newCountryName)
 {
     countryName = newCountryName;
     System.out.println(countryName);
-}
-private void startCountryView()
-{
+    startCountryView();
 
+
+}
+private static void startCountryView()
+{
+    try {
+        Intent intent = new Intent(mContext, EnterCountryName.class);
+        intent.putExtra("CountryName", countryName);
+        intent.putExtra("UserName", userName);
+        mContext.startActivity(intent);
+
+    }
+    catch (Exception e){
+        e.printStackTrace();
+    }
 }
 
 
