@@ -102,7 +102,7 @@ public class AddPictureActivity extends AppCompatActivity{
                         StringRequest addImageRequest = new StringRequest(Request.Method.GET, ADDIMAGE_URL + url + "/" + key, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                goToPreviousActivity();
+
                             }
                         }, new Response.ErrorListener() {
                             @Override
@@ -160,10 +160,6 @@ public class AddPictureActivity extends AppCompatActivity{
     }
 
     public void onBtnBackAddPicture_Clicked(View caller) {
-        goToPreviousActivity();
-    }
-
-    private void goToPreviousActivity() {
         Intent intent =new Intent(this, PicturesActivity.class);
         intent.putExtra("CountryName", countryName);
         intent.putExtra("Key", key);
