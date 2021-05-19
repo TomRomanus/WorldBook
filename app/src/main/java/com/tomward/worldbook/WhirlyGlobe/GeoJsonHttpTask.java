@@ -7,6 +7,7 @@ import com.mousebird.maply.BaseController;
 import com.mousebird.maply.VectorInfo;
 import com.mousebird.maply.VectorObject;
 
+//import org.json.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
