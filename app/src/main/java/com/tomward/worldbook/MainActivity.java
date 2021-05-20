@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txtUserName = (TextView) findViewById(R.id.txtUserName);
-        txtPassword = (TextView) findViewById(R.id.txtPassword);
+        txtUserName = findViewById(R.id.txtUserName);
+        txtPassword = findViewById(R.id.txtPassword);
 
         requestQueue = Volley.newRequestQueue(this);
     }

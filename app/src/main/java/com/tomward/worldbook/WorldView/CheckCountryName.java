@@ -21,7 +21,7 @@ public class CheckCountryName extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_country_name);
 
-        txtCountryIn = (TextView) findViewById(R.id.txtCountryIn);
+        txtCountryIn = findViewById(R.id.txtCountryIn);
 
         Bundle extras = getIntent().getExtras();
         userName = extras.getString("UserName");

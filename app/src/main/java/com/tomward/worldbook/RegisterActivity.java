@@ -37,9 +37,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        txtUserName = (TextView) findViewById(R.id.txtUserNameRegister);
-        txtPassword1 = (TextView) findViewById(R.id.txtPassword1);
-        txtPassword2 = (TextView) findViewById(R.id.txtPassword2);
+        txtUserName = findViewById(R.id.txtUserNameRegister);
+        txtPassword1 = findViewById(R.id.txtPassword1);
+        txtPassword2 = findViewById(R.id.txtPassword2);
 
         requestQueue = Volley.newRequestQueue(this);
     }

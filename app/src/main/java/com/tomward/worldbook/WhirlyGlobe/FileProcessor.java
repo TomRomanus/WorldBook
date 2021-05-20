@@ -20,7 +20,7 @@ import java.io.Reader;
 
 
 public class FileProcessor extends AppCompatActivity {
-    private Context context;
+    private final Context context;
     BaseController controller;
 
 
@@ -28,7 +28,7 @@ public class FileProcessor extends AppCompatActivity {
     public FileProcessor(Context context){
         this.context = context;
     }
-    private JSONParser parser = new JSONParser();
+    private final JSONParser parser = new JSONParser();
 
     public JSONArray parseFileToJSON(String path) throws FileNotFoundException {
         try{

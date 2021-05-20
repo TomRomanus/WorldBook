@@ -52,8 +52,8 @@ public class PicturesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictures);
 
-        txtCountryName = (TextView) findViewById(R.id.txtCountryNamePictures);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        txtCountryName = findViewById(R.id.txtCountryNamePictures);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
         Bundle extras = getIntent().getExtras();
@@ -73,20 +73,22 @@ public class PicturesActivity extends AppCompatActivity {
     }
 
     public void onBtnBackPictures_Clicked(View caller) {
-        Intent intent =new Intent(this, CountryActivity.class);
+        saveData(CountryActivity.class);
+    }
+
+    public void onBtnAddImage_Clicked(View caller) {
+        saveData(AddPictureActivity.class);
+    }
+
+    private void saveData(Class nextClass) {
+        Intent intent =new Intent(this, nextClass);
         intent.putExtra("CountryName", countryName);
         intent.putExtra("Key", key);
         intent.putExtra("UserName", userName);
         startActivity(intent);
     }
 
-    public void onBtnAddImage_Clicked(View caller) {
-        Intent intent =new Intent(this, AddPictureActivity.class);
-        intent.putExtra("CountryName", countryName);
-        intent.putExtra("Key", key);
-        intent.putExtra("UserName", userName);
-        startActivity(intent);
-    }
+
 
     private void getImagesFromDB() {
         JsonArrayRequest getImageRequest = new JsonArrayRequest(Request.Method.GET, GETIMAGE_URL + key, null, new Response.Listener<JSONArray>() {

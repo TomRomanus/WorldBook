@@ -22,10 +22,10 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
-    private Context context;
-    private List<Upload> uploads;
+    private final Context context;
+    private final List<Upload> uploads;
     private String key = "";
-    private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+    private final StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
     private static final String TAG = "MyAdapter";
 
@@ -80,7 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         public ViewHolder(View itemView) {
             super(itemView);
 
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 }

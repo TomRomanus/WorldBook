@@ -54,9 +54,9 @@ public class AddPictureActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_picture);
 
-        image = (ImageView)findViewById(R.id.image);
-        choose = (Button)findViewById(R.id.choose);
-        upload = (Button)findViewById(R.id.upload);
+        image = findViewById(R.id.image);
+        choose = findViewById(R.id.choose);
+        upload = findViewById(R.id.upload);
 
         Bundle extras = getIntent().getExtras();
         key = extras.getString("Key");

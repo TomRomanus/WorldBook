@@ -51,12 +51,12 @@ public class CountryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
 
-        txtCountryName = (TextView) findViewById(R.id.txtCountryName);
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        txtInfo = (TextView) findViewById(R.id.txtInfo);
+        txtCountryName = findViewById(R.id.txtCountryName);
+        ratingBar = findViewById(R.id.ratingBar);
+        txtInfo = findViewById(R.id.txtInfo);
         txtInfo.setSingleLine(false);
-        txtMonth = (TextView) findViewById(R.id.txtMonth);
-        txtYear = (TextView) findViewById(R.id.txtYear);
+        txtMonth = findViewById(R.id.txtMonth);
+        txtYear = findViewById(R.id.txtYear);
 
         context = this;
 
