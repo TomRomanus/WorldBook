@@ -77,10 +77,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkPasswords() {
         if(password == passwordDB && password != -1) {
-            //Intent intent =new Intent(this, CheckCountryName.class);
-            /*intent.putExtra("UserName", userName);
-            startActivity(intent);*/
-            //setContentView(R.layout.activity_globe);
             try {
                 Intent intent = new Intent(this, GlobeManager.class);
                 intent.putExtra("UserName", userName);

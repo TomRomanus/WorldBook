@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tomward.worldbook.CountyInfo.CountryActivity;
-import com.tomward.worldbook.MainActivity;
 import com.tomward.worldbook.R;
 
 public class CheckCountryName extends AppCompatActivity {

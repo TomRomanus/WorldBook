@@ -62,13 +62,9 @@ public class HelloGeoJsonFragment extends LocalGlobeFragment {
                 addSelectedObject(vectorObject);
             }
         }
-
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
         if(adminName!= null) {
             //go to next country
             GlobeManager.setCountryName(adminName);
-//            String country = GlobeManager.countryName;
-//            country = adminName;
         }
 
     }
