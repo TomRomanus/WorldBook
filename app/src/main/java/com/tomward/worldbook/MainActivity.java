@@ -1,13 +1,13 @@
 package com.tomward.worldbook;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,7 +17,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.tomward.worldbook.WorldView.GlobeManager;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,24 +49,18 @@ public class MainActivity extends AppCompatActivity {
         password = txtPassword.getText().toString().toLowerCase().trim().hashCode();
 
         String getUserURL = GETUSER_URL + userName;
-        JsonArrayRequest getUserRequest = new JsonArrayRequest(Request.Method.GET,getUserURL,null,new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    JSONObject o = response.getJSONObject(0);
-                    passwordDB = o.getInt("Password");
-                    checkPasswords();
-                } catch (JSONException e) {
-                    Log.d(TAG, e.getMessage());
-                    Toast.makeText(MainActivity.this, "Username not found", Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError e) {
-                Toast.makeText(MainActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show();
+        JsonArrayRequest getUserRequest = new JsonArrayRequest(Request.Method.GET,getUserURL,null, response -> {
+            try {
+                JSONObject o = response.getJSONObject(0);
+                passwordDB = o.getInt("Password");
+                checkPasswords();
+            } catch (JSONException e) {
                 Log.d(TAG, e.getMessage());
+                Toast.makeText(MainActivity.this, "Username not found", Toast.LENGTH_LONG).show();
             }
+        }, e -> {
+            Toast.makeText(MainActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show();
+            Log.d(TAG, e.getMessage());
         });
         requestQueue.add(getUserRequest);
     }

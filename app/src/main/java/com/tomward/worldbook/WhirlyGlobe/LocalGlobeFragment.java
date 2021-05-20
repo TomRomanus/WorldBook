@@ -2,20 +2,12 @@ package com.tomward.worldbook.WhirlyGlobe;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.os.Bundle;
 import android.util.Log;
-
-import androidx.annotation.Nullable;
 
 import com.mousebird.maply.MBTileFetcher;
 import com.mousebird.maply.QuadImageLoader;
 import com.mousebird.maply.SamplingParams;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
-import com.tomward.worldbook.R;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,9 +16,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class LocalGlobeFragment extends HelloGlobeFragment {
-
-    private Context context;
-
 
 
     @Override
@@ -81,7 +70,4 @@ public class LocalGlobeFragment extends HelloGlobeFragment {
         return of;
     }
 
-    public void setContext(Context context){
-
-    }
 }

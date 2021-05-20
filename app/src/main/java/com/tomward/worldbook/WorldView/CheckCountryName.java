@@ -14,14 +14,12 @@ public class CheckCountryName extends AppCompatActivity {
     private String userName = "";
     private String countryName = "";
 
-    private TextView txtCountryIn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_country_name);
 
-        txtCountryIn = findViewById(R.id.txtCountryIn);
+        TextView txtCountryIn = findViewById(R.id.txtCountryIn);
 
         Bundle extras = getIntent().getExtras();
         userName = extras.getString("UserName");

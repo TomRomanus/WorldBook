@@ -1,8 +1,5 @@
 package com.tomward.worldbook.CountyInfo;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -17,16 +14,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.tomward.worldbook.R;
@@ -110,44 +104,26 @@ public class AddPictureActivity extends AppCompatActivity{
         StorageReference sRef = storageReference.child(key + "/" + url);
 
         UploadTask uploadTask = sRef.putFile(filePath);
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+        uploadTask.addOnSuccessListener(taskSnapshot -> {
 
-                progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+            progressDialog.dismiss();
+            Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
 
-                //adding reference to database
-                StringRequest addImageRequest = new StringRequest(Request.Method.GET, ADDIMAGE_URL + url + "/" + key, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        goToPreviousActivity();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError e) {
-                        Log.d(TAG, e.getMessage());
-                        Toast.makeText(AddPictureActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-                requestQueue.add(addImageRequest);
-            }
-
-        });
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
+            //adding reference to database
+            StringRequest addImageRequest = new StringRequest(Request.Method.GET, ADDIMAGE_URL + url + "/" + key, response -> goToPreviousActivity(), e -> {
                 Log.d(TAG, e.getMessage());
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-            }
+                Toast.makeText(AddPictureActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            });
+            requestQueue.add(addImageRequest);
         });
-        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
-            }
+        uploadTask.addOnFailureListener(e -> {
+            progressDialog.dismiss();
+            Log.d(TAG, e.getMessage());
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        });
+        uploadTask.addOnProgressListener(taskSnapshot -> {
+            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+            progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
         });
     }
 

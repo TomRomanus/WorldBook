@@ -3,7 +3,6 @@ package com.tomward.worldbook.WhirlyGlobe;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.mousebird.maply.AttrDictionary;
 import com.mousebird.maply.BaseController;
@@ -14,10 +13,6 @@ import com.mousebird.maply.SelectedObject;
 import com.mousebird.maply.VectorInfo;
 import com.mousebird.maply.VectorObject;
 import com.tomward.worldbook.WorldView.GlobeManager;
-
-import org.json.simple.JSONObject;
-
-import java.util.ArrayList;
 
 public class HelloGeoJsonFragment extends LocalGlobeFragment {
 
@@ -51,14 +46,12 @@ public class HelloGeoJsonFragment extends LocalGlobeFragment {
         super.userDidSelect(globeControl, selObjs, loc, screenLoc);
 
         String adminName = null;
-        String msg = "Selected feature count: " + selObjs.length;
         for (SelectedObject obj : selObjs) {
             // GeoJSON
             if (obj.selObj instanceof VectorObject) {
                 VectorObject vectorObject = (VectorObject) obj.selObj;
                 AttrDictionary attributes = vectorObject.getAttributes();
                 adminName = attributes.getString("ADMIN");
-                msg += "\nVector Object: " + adminName;
                 addSelectedObject(vectorObject);
             }
         }
@@ -92,16 +85,7 @@ public class HelloGeoJsonFragment extends LocalGlobeFragment {
         super.onDestroy();
     }
 
-    public void drawVector(JSONObject jsonObject){
 
-        VectorObject object = new VectorObject();
-        if (object.fromGeoJSON(jsonObject.toJSONString())) {
-            VectorInfo vectorInfo = new VectorInfo();
-            vectorInfo.setColor(Color.RED);
-            vectorInfo.setLineWidth(4.f);
-            globeControl.addVector(object, vectorInfo, BaseController.ThreadMode.ThreadAny);
-        }
-    }
     private GeoJsonHttpTask loadTask = null;
 
     private ComponentObject selectedComponentObject;

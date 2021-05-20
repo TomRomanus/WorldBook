@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mousebird.maply.BaseController;
 import com.mousebird.maply.GlobeMapFragment;
 import com.mousebird.maply.QuadImageLoader;
 import com.mousebird.maply.RemoteTileInfoNew;
 import com.mousebird.maply.RenderController;
 import com.mousebird.maply.SamplingParams;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
-
 
 import java.io.File;
 
@@ -71,8 +69,6 @@ public class HelloGlobeFragment extends GlobeMapFragment {
 
 
     }
-public BaseController getBaseController(){
-        return globeControl;
-}
+
 
 }

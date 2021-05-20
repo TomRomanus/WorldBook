@@ -1,7 +1,5 @@
 package com.tomward.worldbook;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,16 +7,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.tomward.worldbook.WorldView.GlobeManager;
-
-import org.json.JSONArray;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -55,40 +51,26 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else {
             String registerURL = ADDUSER_URL + userName + "/" + password;
-            StringRequest registerRequest = new StringRequest(Request.Method.GET, registerURL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    goToNextActivity(userName);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError e) {
-                    Toast.makeText(RegisterActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.d(TAG, e.getMessage());
-                }
+            StringRequest registerRequest = new StringRequest(Request.Method.GET, registerURL, response -> goToNextActivity(userName), e -> {
+                Toast.makeText(RegisterActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, e.getMessage());
             });
 
             String getUserURL = GETUSER_URL + userName;
-            JsonArrayRequest getUserRequest = new JsonArrayRequest(Request.Method.GET, getUserURL, null, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    if(response.length() != 0) {
-                        Toast.makeText(RegisterActivity.this, "Username taken", Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        if (password1.equals(password2)) {
-                            requestQueue.add(registerRequest);
-                        } else {
-                            Toast.makeText(RegisterActivity.this, "password inconsistent", Toast.LENGTH_LONG).show();
-                        }
+            JsonArrayRequest getUserRequest = new JsonArrayRequest(Request.Method.GET, getUserURL, null, response -> {
+                if(response.length() != 0) {
+                    Toast.makeText(RegisterActivity.this, "Username taken", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    if (password1.equals(password2)) {
+                        requestQueue.add(registerRequest);
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "password inconsistent", Toast.LENGTH_LONG).show();
                     }
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError e) {
-                    Toast.makeText(RegisterActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show();
-                    Log.d(TAG, e.getMessage());
-                }
+            }, e -> {
+                Toast.makeText(RegisterActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show();
+                Log.d(TAG, e.getMessage());
             });
             requestQueue.add(getUserRequest);
         }

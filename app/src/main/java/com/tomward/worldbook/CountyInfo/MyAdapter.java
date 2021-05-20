@@ -9,11 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.tomward.worldbook.R;
@@ -24,7 +21,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     private final Context context;
     private final List<Upload> uploads;
-    private String key = "";
+    private String key;
     private final StorageReference storageRef = FirebaseStorage.getInstance().getReference();
 
     private static final String TAG = "MyAdapter";
@@ -39,8 +36,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context)
                 .inflate(R.layout.layout_images, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -51,18 +47,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             StorageReference islandRef = storageRef.child(key + "/" + upload.getUrl());
             final long FIVE_MEGABYTES = 1024 * 1024 * 5;
 
-            islandRef.getBytes(FIVE_MEGABYTES).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                @Override
-                public void onSuccess(byte[] bytes) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    holder.imageView.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, e.getMessage());
-                }
-            });
+            islandRef.getBytes(FIVE_MEGABYTES).addOnSuccessListener(bytes -> {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                holder.imageView.setImageBitmap(bitmap);
+            }).addOnFailureListener(e -> Log.d(TAG, e.getMessage()));
         } catch (Exception e) {
             Log.d(TAG, e.getMessage());
         }

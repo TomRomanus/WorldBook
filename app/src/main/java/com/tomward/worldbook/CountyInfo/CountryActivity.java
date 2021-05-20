@@ -1,7 +1,5 @@
 package com.tomward.worldbook.CountyInfo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,13 +21,11 @@ import com.android.volley.toolbox.Volley;
 import com.tomward.worldbook.R;
 import com.tomward.worldbook.WorldView.GlobeManager;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CountryActivity extends AppCompatActivity {
 
-    private TextView txtCountryName;
     private RatingBar ratingBar;
     private TextView txtInfo;
     private TextView txtMonth;
@@ -51,7 +49,7 @@ public class CountryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
 
-        txtCountryName = findViewById(R.id.txtCountryName);
+        TextView txtCountryName = findViewById(R.id.txtCountryName);
         ratingBar = findViewById(R.id.ratingBar);
         txtInfo = findViewById(R.id.txtInfo);
         txtInfo.setSingleLine(false);
@@ -69,30 +67,22 @@ public class CountryActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         String getURL = GET_URL + key;
-        JsonArrayRequest setRequest = new JsonArrayRequest(Request.Method.GET,getURL,null,new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    JSONObject o = response.getJSONObject(0);
-                    txtMonth.setText(o.getString("Month"));
-                    txtYear.setText(o.getString("Year"));
-                    rating = Float.parseFloat(o.getString("Rating"));
-                    ratingBar.setRating(rating);
-                    String info = o.getString("Info").replace("µµn","\n");
-                    if(info.equals("null"))
-                        txtInfo.setText("");
-                    else txtInfo.setText(info);
+        JsonArrayRequest setRequest = new JsonArrayRequest(Request.Method.GET,getURL,null, response -> {
+            try {
+                JSONObject o = response.getJSONObject(0);
+                txtMonth.setText(o.getString("Month"));
+                txtYear.setText(o.getString("Year"));
+                rating = Float.parseFloat(o.getString("Rating"));
+                ratingBar.setRating(rating);
+                String info = o.getString("Info").replace("µµn","\n");
+                if(info.equals("null"))
+                    txtInfo.setText("");
+                else txtInfo.setText(info);
 
-                } catch (JSONException e) {
-                    Log.d(TAG, e.getMessage());
-                }
+            } catch (JSONException e) {
+                Log.d(TAG, e.getMessage());
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CountryActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show();
-            }
-        });
+        }, error -> Toast.makeText(CountryActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show());
         requestQueue.add(setRequest);
     }
 
@@ -120,33 +110,27 @@ public class CountryActivity extends AppCompatActivity {
                 rating + "/" +
                 infoToSave;
 
-        StringRequest saveRequest = new StringRequest(Request.Method.GET, saveURL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                switch (e) {
-                    case 'B':
-                        Intent intentB = new Intent(context, GlobeManager.class);
-                        intentB.putExtra("UserName", userName);
-                        startActivity(intentB);
-                        break;
-                    case 'P':
-                        Intent intentP = new Intent(context, PicturesActivity.class);
-                        intentP.putExtra("CountryName", countryName);
-                        intentP.putExtra("Key", key);
-                        intentP.putExtra("UserName", userName);
-                        startActivity(intentP);
-                        break;
-                    case 'S':
-                        Toast.makeText(CountryActivity.this, "Saved", Toast.LENGTH_SHORT).show();
-                        break;
-                }
+        StringRequest saveRequest = new StringRequest(Request.Method.GET, saveURL, response -> {
+            switch (e) {
+                case 'B':
+                    Intent intentB = new Intent(context, GlobeManager.class);
+                    intentB.putExtra("UserName", userName);
+                    startActivity(intentB);
+                    break;
+                case 'P':
+                    Intent intentP = new Intent(context, PicturesActivity.class);
+                    intentP.putExtra("CountryName", countryName);
+                    intentP.putExtra("Key", key);
+                    intentP.putExtra("UserName", userName);
+                    startActivity(intentP);
+                    break;
+                case 'S':
+                    Toast.makeText(CountryActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                    break;
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError e) {
-                Toast.makeText(CountryActivity.this, "Unable to save, please try again", Toast.LENGTH_LONG).show();
-                Log.d(TAG, e.getMessage());
-            }
+        }, e1 -> {
+            Toast.makeText(CountryActivity.this, "Unable to save, please try again", Toast.LENGTH_LONG).show();
+            Log.d(TAG, e1.getMessage());
         });
 
         String updateURL = UPDATE_URL +
@@ -156,17 +140,9 @@ public class CountryActivity extends AppCompatActivity {
                 infoToSave + "/" +
                 key;
 
-        StringRequest updateRequest = new StringRequest(Request.Method.GET, updateURL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                requestQueue.add(saveRequest);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError e) {
-                Toast.makeText(CountryActivity.this, "Unable to save, please try again", Toast.LENGTH_LONG).show();
-                Log.d(TAG, e.getMessage());
-            }
+        StringRequest updateRequest = new StringRequest(Request.Method.GET, updateURL, response -> requestQueue.add(saveRequest), e12 -> {
+            Toast.makeText(CountryActivity.this, "Unable to save, please try again", Toast.LENGTH_LONG).show();
+            Log.d(TAG, e12.getMessage());
         });
         requestQueue.add(updateRequest);
     }

@@ -21,8 +21,6 @@ import java.io.Reader;
 
 public class FileProcessor extends AppCompatActivity {
     private final Context context;
-    BaseController controller;
-
 
 
     public FileProcessor(Context context){
@@ -40,8 +38,7 @@ public class FileProcessor extends AppCompatActivity {
                 System.out.println("Object not found");
                 return null;
             }
-            JSONArray countryObjects = (JSONArray) obj.get("features");
-            return countryObjects;
+            return (JSONArray) obj.get("features");
 
 
 

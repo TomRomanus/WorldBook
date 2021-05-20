@@ -37,7 +37,6 @@ public class GeoJsonHttpTask extends AsyncTask<String, Void, String> {
         try {
             FileProcessor fp = new FileProcessor(GlobeManager.mContext);
             JSONArray countryObjects = fp.parseFileToJSON("geojson/world.geojson");
-            //countryObjects.forEach(n -> drawVector((JSONObject) n));
             Iterator<JSONObject> listIterator = countryObjects.iterator();
             while (listIterator.hasNext()){
                 JSONObject country = listIterator.next();
