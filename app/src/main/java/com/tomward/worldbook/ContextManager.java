@@ -4,14 +4,17 @@ import android.app.Application;
 import android.content.Context;
 
 public class ContextManager extends Application {
-    private static Context mContext;
+    private static ContextManager instance;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this.getApplicationContext();
+        instance = this;
     }
     public static Context getAppContext(){
-        return mContext;
+        return instance.getApplicationContext();
+    }
+    public static ContextManager getInstance(){
+        return instance;
     }
 }

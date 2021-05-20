@@ -41,7 +41,7 @@ public class FileProcessor extends AppCompatActivity {
             //JSONObject obj = (JSONObject) parser.parse(new FileReader(path));
             //Context context = getApplicationContext();
             AssetManager manager = context.getAssets();
-            InputStream is = manager.open("geojson/countries.geojson");
+            InputStream is = manager.open(path);
             Reader reader = new InputStreamReader(is);
             JSONObject obj = (JSONObject)parser.parse(reader);
             if (obj == null) {

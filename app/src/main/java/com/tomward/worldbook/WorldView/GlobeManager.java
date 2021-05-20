@@ -30,7 +30,7 @@ public class GlobeManager extends AppCompatActivity {
 
     public static String countryName;
     public static String userName;
-    private static Context mContext;
+    public static Context mContext;
 
     public static ArrayList<String> countriesList = new ArrayList<>();
     private static final String GETCOUNTRIES_URL = "https://studev.groept.be/api/a20sd101/GetCountriesWithUserName/";
@@ -48,6 +48,7 @@ public class GlobeManager extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         getCountriesWithUserName();
         //set content view to globe
+        System.out.println("Start globe bootup");
         setContentView(R.layout.activity_globe);
 //        try {
 //            FileProcessor fp = new FileProcessor(getApplicationContext());

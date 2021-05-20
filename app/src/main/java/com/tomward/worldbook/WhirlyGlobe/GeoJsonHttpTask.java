@@ -38,7 +38,8 @@ public class GeoJsonHttpTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        HttpURLConnection urlConnection;
+        return null;
+        /*HttpURLConnection urlConnection;
         try {
             String urlStr = params[0];
             URL url = new URL(urlStr);
@@ -60,17 +61,18 @@ public class GeoJsonHttpTask extends AsyncTask<String, Void, String> {
         } catch (Exception e) {
             // didn't work
         }
-        return null;
+        return null;*/
     }
     @Override
     protected void onPostExecute(String json) {
         System.out.println("Countries have been loaded");
         try {
-            //ContextManager contextManager
-            //FileProcessor fp = new FileProcessor()
-            JSONParser parser = new JSONParser();
+            //ContextManager contextManager= new ContextManager();
+            FileProcessor fp = new FileProcessor(GlobeManager.mContext);
+            JSONArray countryObjects = fp.parseFileToJSON("geojson/simplified.geojson");
+            /*JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(json);
-            JSONArray countryObjects = (JSONArray) obj.get("features");
+            JSONArray countryObjects = (JSONArray) obj.get("features");*/
             Iterator<JSONObject> listIterator = countryObjects.iterator();
             while (listIterator.hasNext()){
                 JSONObject country = listIterator.next();
@@ -108,8 +110,10 @@ private void drawVector(JSONObject country){
     }
 
 }
+
 private boolean countryHasBeenVisited(JSONObject country){
         try {
+
             JSONObject properties = (JSONObject) country.get("properties");
             Object nameCountry = properties.get("ADMIN");
             String name = nameCountry.toString();
