@@ -57,7 +57,6 @@ public class LocalGlobeFragment extends HelloGlobeFragment {
         double longitude = -3.6704803 * Math.PI / 180;
         double zoom_earth_radius = 0.5;
         globeControl.animatePositionGeo(longitude, latitude, zoom_earth_radius, 1.0);
-        //drawVectors();
     }
 
     private File getMBTileAsset(String name) throws IOException {

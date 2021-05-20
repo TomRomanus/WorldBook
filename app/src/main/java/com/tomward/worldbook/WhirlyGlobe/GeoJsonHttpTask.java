@@ -3,6 +3,10 @@ package com.tomward.worldbook.WhirlyGlobe;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.mousebird.maply.BaseController;
 import com.mousebird.maply.VectorInfo;
 import com.mousebird.maply.VectorObject;
@@ -26,12 +30,14 @@ public class GeoJsonHttpTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         return null;
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onPostExecute(String json) {
         System.out.println("Countries have been loaded");
         try {
             FileProcessor fp = new FileProcessor(GlobeManager.mContext);
             JSONArray countryObjects = fp.parseFileToJSON("geojson/world.geojson");
+            //countryObjects.forEach(n -> drawVector((JSONObject) n));
             Iterator<JSONObject> listIterator = countryObjects.iterator();
             while (listIterator.hasNext()){
                 JSONObject country = listIterator.next();

@@ -8,18 +8,20 @@
 
     <TextView
         android:id="@+id/txtCountryName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="275dp"
+        android:layout_height="89dp"
         android:layout_marginEnd="64dp"
-        android:scaleX="3"
-        android:scaleY="3"
+        android:scaleX="1"
+        android:scaleY="1"
         android:text="Country"
+        android:textAlignment="center"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.607"
+        app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBackCountry"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.051" />
 
     <Button
         android:id="@+id/btnBackCountry"
@@ -53,13 +55,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/txtInfo"
         app:layout_constraintTop_toBottomOf="@+id/txtInfo"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintVertical_bias="0.158" />
 
     <EditText
         android:id="@+id/txtInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="36dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Info"
@@ -74,7 +76,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/txtRating"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.412" />
+        app:layout_constraintVertical_bias="0.485" />
 
     <EditText
         android:id="@+id/txtYear"
@@ -86,7 +88,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/txtMonth"
         app:layout_constraintStart_toEndOf="@+id/txtMonth"
         app:layout_constraintTop_toTopOf="@+id/txtMonth"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/txtMonth"
@@ -98,7 +100,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/txtDate"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintVertical_bias="0.341" />
 
     <TextView
         android:id="@+id/txtDate"

@@ -22,18 +22,20 @@
 
     <TextView
         android:id="@+id/txtCountryNamePictures"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="246dp"
+        android:layout_height="71dp"
         android:layout_marginEnd="64dp"
-        android:scaleX="3"
-        android:scaleY="3"
+        android:scaleX="1"
+        android:scaleY="1"
         android:text="Country"
+        android:textAlignment="center"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.607"
+        app:layout_constraintHorizontal_bias="0.811"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBackPictures"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.02" />
 
     <Button
         android:id="@+id/btnAddImage"
@@ -51,7 +53,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="405dp"
-        android:layout_height="520dp"
+        android:layout_height="501dp"
         app:layout_constraintBottom_toTopOf="@+id/btnAddImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
