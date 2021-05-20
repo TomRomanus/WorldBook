@@ -1,6 +1,6 @@
 package com.tomward.worldbook.WhirlyGlobe;
 
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +13,10 @@ import com.mousebird.maply.RemoteTileInfoNew;
 import com.mousebird.maply.RenderController;
 import com.mousebird.maply.SamplingParams;
 import com.mousebird.maply.SphericalMercatorCoordSystem;
-import com.mousebird.maply.VectorInfo;
-import com.mousebird.maply.VectorObject;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import java.io.File;
-import java.util.Iterator;
+
 
 public class HelloGlobeFragment extends GlobeMapFragment {
 
