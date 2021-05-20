@@ -85,15 +85,4 @@ public class LocalGlobeFragment extends HelloGlobeFragment {
     public void setContext(Context context){
 
     }
-
-   /* private void drawVectors(){
-        try{
-            //Context context = getApplicationContext();
-            FileProcessor fp = new FileProcessor(getApplicationContext());
-            JSONObject geo =  fp.parseFileToJSON("assets/geojson/countries.geojson");
-        }
-        catch (Exception e){
-            e.printStackTrace();;
-        }
-    }*/
 }
