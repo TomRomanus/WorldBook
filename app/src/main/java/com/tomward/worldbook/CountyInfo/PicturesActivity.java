@@ -32,7 +32,6 @@ public class PicturesActivity extends AppCompatActivity {
 
     private final Context context = this;
 
-    private TextView txtCountryName;
     private RecyclerView recyclerView;
 
     private String countryName ="";
@@ -52,7 +51,6 @@ public class PicturesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictures);
 
-        txtCountryName = findViewById(R.id.txtCountryNamePictures);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
@@ -60,7 +58,6 @@ public class PicturesActivity extends AppCompatActivity {
         key = extras.getString("Key");
         userName = extras.getString("UserName");
         countryName = extras.getString("CountryName");
-        txtCountryName.setText(countryName);
 
         uploads = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
