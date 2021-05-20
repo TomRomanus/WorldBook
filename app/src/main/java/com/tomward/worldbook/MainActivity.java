@@ -22,9 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-    //test 123
-    //test tom
-
     private TextView txtUserName;
     private TextView txtPassword;
 

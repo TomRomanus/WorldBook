@@ -65,74 +65,6 @@ public class AddPictureActivity extends AppCompatActivity{
 
         storageReference = FirebaseStorage.getInstance().getReference();
         requestQueue = Volley.newRequestQueue(this);
-
-        //opening image chooser option
-        choose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
-            }
-        });
-
-        upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressDialog = new ProgressDialog(AddPictureActivity.this);
-                progressDialog.setMessage("Uploading, please wait...");
-                progressDialog.show();
-
-                //sending image to server
-                //getting the storage reference
-                String url = key + System.currentTimeMillis() + "." + getFileExtension(filePath);
-                StorageReference sRef = storageReference.child(key + "/" + url);
-
-                //adding the file to reference
-                UploadTask uploadTask = sRef.putFile(filePath);
-                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
-
-                        //adding reference to database
-                        StringRequest addImageRequest = new StringRequest(Request.Method.GET, ADDIMAGE_URL + url + "/" + key, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                goToPreviousActivity();
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError e) {
-                                Log.d(TAG, e.getMessage());
-                                Toast.makeText(AddPictureActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        requestQueue.add(addImageRequest);
-                    }
-
-                });
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Log.d(TAG, e.getMessage());
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-                uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        //displaying the upload progress
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                        progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
-                    }
-                });
-            }
-        });
     }
 
     @Override
@@ -145,7 +77,6 @@ public class AddPictureActivity extends AppCompatActivity{
             try {
                 //getting image from gallery
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //Setting image to ImageView
                 image.setImageBitmap(bitmap);
             } catch (Exception e) {
                 Log.d(TAG, e.getMessage());
@@ -161,6 +92,63 @@ public class AddPictureActivity extends AppCompatActivity{
 
     public void onBtnBackAddPicture_Clicked(View caller) {
         goToPreviousActivity();
+    }
+
+    public void onBtnChoose_Clicked(View caller) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_PICK);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+    }
+
+    public void onBtnUpload_Clicked(View caller) {
+        progressDialog = new ProgressDialog(AddPictureActivity.this);
+        progressDialog.setMessage("Uploading, please wait...");
+        progressDialog.show();
+
+        String url = key + System.currentTimeMillis() + "." + getFileExtension(filePath);
+        StorageReference sRef = storageReference.child(key + "/" + url);
+
+        UploadTask uploadTask = sRef.putFile(filePath);
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+
+                //adding reference to database
+                StringRequest addImageRequest = new StringRequest(Request.Method.GET, ADDIMAGE_URL + url + "/" + key, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        goToPreviousActivity();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError e) {
+                        Log.d(TAG, e.getMessage());
+                        Toast.makeText(AddPictureActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                requestQueue.add(addImageRequest);
+            }
+
+        });
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Log.d(TAG, e.getMessage());
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+        uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
+            }
+        });
     }
 
     private void goToPreviousActivity() {

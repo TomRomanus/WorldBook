@@ -11,7 +11,7 @@ import com.tomward.worldbook.CountyInfo.CountryActivity;
 import com.tomward.worldbook.R;
 
 public class CheckCountryName extends AppCompatActivity {
-    private String UserName = "";
+    private String userName = "";
     private String countryName = "";
 
     private TextView txtCountryIn;
@@ -24,19 +24,18 @@ public class CheckCountryName extends AppCompatActivity {
         txtCountryIn = (TextView) findViewById(R.id.txtCountryIn);
 
         Bundle extras = getIntent().getExtras();
-        UserName = extras.getString("UserName");
+        userName = extras.getString("UserName");
         countryName = extras.getString("CountryName");
         txtCountryIn.setText(countryName);
     }
 
     public void onBtnNextCheckCountryName_Clicked(View caller) {
-        String countryIn = txtCountryIn.getText().toString().toLowerCase().trim();
-        String key = UserName + countryIn;
+        String key = userName + countryName;
 
         Intent intent =new Intent(this, CountryActivity.class);
-        intent.putExtra("CountryName", countryIn);
+        intent.putExtra("CountryName", countryName);
         intent.putExtra("Key", key);
-        intent.putExtra("UserName", UserName);
+        intent.putExtra("UserName", userName);
         startActivity(intent);
     }
 

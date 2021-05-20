@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +33,6 @@ public class PicturesActivity extends AppCompatActivity {
     private final Context context = this;
 
     private TextView txtCountryName;
-    private ImageView imageView;
     private RecyclerView recyclerView;
 
     private String countryName ="";
@@ -55,7 +53,6 @@ public class PicturesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pictures);
 
         txtCountryName = (TextView) findViewById(R.id.txtCountryNamePictures);
-        imageView = (ImageView) findViewById(R.id.imageView);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
 
@@ -68,12 +65,30 @@ public class PicturesActivity extends AppCompatActivity {
         uploads = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
 
-        //displaying progress dialog while fetching images
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
+        getImagesFromDB();
 
-        //getting images from database
+    }
+
+    public void onBtnBackPictures_Clicked(View caller) {
+        Intent intent =new Intent(this, CountryActivity.class);
+        intent.putExtra("CountryName", countryName);
+        intent.putExtra("Key", key);
+        intent.putExtra("UserName", userName);
+        startActivity(intent);
+    }
+
+    public void onBtnAddImage_Clicked(View caller) {
+        Intent intent =new Intent(this, AddPictureActivity.class);
+        intent.putExtra("CountryName", countryName);
+        intent.putExtra("Key", key);
+        intent.putExtra("UserName", userName);
+        startActivity(intent);
+    }
+
+    private void getImagesFromDB() {
         JsonArrayRequest getImageRequest = new JsonArrayRequest(Request.Method.GET, GETIMAGE_URL + key, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -84,6 +99,7 @@ public class PicturesActivity extends AppCompatActivity {
                         Upload upload = new Upload(key, url);
                         uploads.add(upload);
                     }
+
                     //creating adapter
                     RecyclerView.Adapter adapter = new MyAdapter(context, uploads, key);
                     recyclerView.setAdapter(adapter);
@@ -106,21 +122,5 @@ public class PicturesActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(getImageRequest);
-    }
-
-    public void onBtnBackPictures_Clicked(View caller) {
-        Intent intent =new Intent(this, CountryActivity.class);
-        intent.putExtra("CountryName", countryName);
-        intent.putExtra("Key", key);
-        intent.putExtra("UserName", userName);
-        startActivity(intent);
-    }
-
-    public void onBtnAddImage_Clicked(View caller) {
-        Intent intent =new Intent(this, AddPictureActivity.class);
-        intent.putExtra("CountryName", countryName);
-        intent.putExtra("Key", key);
-        intent.putExtra("UserName", userName);
-        startActivity(intent);
     }
 }

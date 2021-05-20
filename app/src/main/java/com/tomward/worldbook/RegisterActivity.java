@@ -16,12 +16,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.tomward.worldbook.WorldView.CheckCountryName;
 import com.tomward.worldbook.WorldView.GlobeManager;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -48,20 +45,20 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onBtnRegister_Clicked(View caller) {
-        String UserName = txtUserName.getText().toString().toLowerCase().trim();
-        String Password1 = txtPassword1.getText().toString().toLowerCase().trim();
-        String Password2 = txtPassword2.getText().toString().toLowerCase().trim();
-        int Password = Password1.hashCode();
+        String userName = txtUserName.getText().toString().toLowerCase().trim();
+        String password1 = txtPassword1.getText().toString().toLowerCase().trim();
+        String password2 = txtPassword2.getText().toString().toLowerCase().trim();
+        int password = password1.hashCode();
 
-        if(UserName.equals("") || Password1.equals("") || Password2.equals("")) {
+        if(userName.equals("") || password1.equals("") || password2.equals("")) {
             Toast.makeText(RegisterActivity.this, "Please enter username and passwords", Toast.LENGTH_LONG).show();
         }
         else {
-            String registerURL = ADDUSER_URL + UserName + "/" + Password;
+            String registerURL = ADDUSER_URL + userName + "/" + password;
             StringRequest registerRequest = new StringRequest(Request.Method.GET, registerURL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    goToNextActivity(UserName);
+                    goToNextActivity(userName);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -71,20 +68,18 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
 
-            String getUserURL = GETUSER_URL + UserName;
+            String getUserURL = GETUSER_URL + userName;
             JsonArrayRequest getUserRequest = new JsonArrayRequest(Request.Method.GET, getUserURL, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-                    try {
-                        //Als Username nog niet bestaat wordt een kolom van 0 rijen teruggegeven --> index 0 zorgt voor indexOutOfBoundsException
-                        JSONObject o = response.getJSONObject(0);
+                    if(response.length() != 0) {
                         Toast.makeText(RegisterActivity.this, "Username taken", Toast.LENGTH_LONG).show();
-                    } catch (JSONException e) {
-                        Log.d(TAG, e.getMessage());
-                        if (Password1.equals(Password2)) {
+                    }
+                    else {
+                        if (password1.equals(password2)) {
                             requestQueue.add(registerRequest);
                         } else {
-                            Toast.makeText(RegisterActivity.this, "Password inconsistent", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "password inconsistent", Toast.LENGTH_LONG).show();
                         }
                     }
                 }

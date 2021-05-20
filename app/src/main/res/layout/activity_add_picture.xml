@@ -31,15 +31,17 @@
         android:id="@+id/image"/>
 
     <Button
+        android:id="@+id/choose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose"
-        android:id="@+id/choose"/>
+        android:onClick="onBtnChoose_Clicked"
+        android:text="Choose" />
 
     <Button
+        android:id="@+id/upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload"
-        android:id="@+id/upload"/>
+        android:onClick="onBtnUpload_Clicked"
+        android:text="Upload" />
 
 </LinearLayout>

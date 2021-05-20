@@ -19,7 +19,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.tomward.worldbook.R;
-import com.tomward.worldbook.WorldView.CheckCountryName;
 import com.tomward.worldbook.WorldView.GlobeManager;
 
 import org.json.JSONArray;
