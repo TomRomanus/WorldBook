@@ -42,10 +42,12 @@ public class GlobeManager extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Bundle extras = getIntent().getExtras();
         userName = extras.getString("UserName");
-        setContentView(R.layout.activity_globe);
+
         mContext = this;
 
         requestQueue = Volley.newRequestQueue(this);
+        getCountriesWithUserName();
+        setContentView(R.layout.activity_globe);
 //        try {
 //            FileProcessor fp = new FileProcessor(getApplicationContext());
 //            JSONArray geo = fp.parseFileToJSON("assets/geojson/countries.geojson");

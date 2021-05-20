@@ -19,7 +19,7 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-public class HelloGeoJsonFragment extends HelloGlobeFragment {
+public class HelloGeoJsonFragment extends LocalGlobeFragment {
 
 
     @Override
