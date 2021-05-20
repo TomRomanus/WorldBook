@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import com.mousebird.maply.BaseController;
 import com.mousebird.maply.VectorInfo;
 import com.mousebird.maply.VectorObject;
+import com.tomward.worldbook.ContextManager;
+import com.tomward.worldbook.WorldView.GlobeManager;
 
 //import org.json.JSONObject;
 import org.json.simple.JSONArray;
@@ -64,6 +66,8 @@ public class GeoJsonHttpTask extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String json) {
         System.out.println("Countries have been loaded");
         try {
+            //ContextManager contextManager
+            //FileProcessor fp = new FileProcessor()
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(json);
             JSONArray countryObjects = (JSONArray) obj.get("features");
@@ -83,14 +87,43 @@ public class GeoJsonHttpTask extends AsyncTask<String, Void, String> {
 
 private void drawVector(JSONObject country){
     System.out.println("We have drawn a country");
+    int vectorColor;
+    float lineWidth;
+
+    if(countryHasBeenVisited(country)){
+        vectorColor = Color.GREEN;
+        lineWidth = 4.f;
+    }
+    else{
+        vectorColor = Color.BLACK;
+        lineWidth = 2.f;
+    }
+
     VectorObject object = new VectorObject();
     if (object.fromGeoJSON(country.toJSONString())) {
         VectorInfo vectorInfo = new VectorInfo();
-        vectorInfo.setColor(Color.RED);
-        vectorInfo.setLineWidth(4.f);
+        vectorInfo.setColor(vectorColor);
+        vectorInfo.setLineWidth(lineWidth);
         controller.addVector(object, vectorInfo, BaseController.ThreadMode.ThreadAny);
     }
 
 }
+private boolean countryHasBeenVisited(JSONObject country){
+        try {
+            JSONObject properties = (JSONObject) country.get("properties");
+            Object nameCountry = properties.get("ADMIN");
+            String name = nameCountry.toString();
+            for(String nCountry: GlobeManager.countriesList){
+                if(nCountry.equals(name)) return true;
+            }
+            return false;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+}
+
 }
 
