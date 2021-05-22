@@ -10,7 +10,7 @@
         android:id="@+id/txtCountryName"
         android:layout_width="275dp"
         android:layout_height="89dp"
-        android:layout_marginEnd="64dp"
+        android:fontFamily="sans-serif-condensed-light"
         android:scaleX="1"
         android:scaleY="1"
         android:text="Country"
@@ -18,7 +18,6 @@
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBackCountry"
         app:layout_constraintVertical_bias="0.051" />
@@ -80,7 +79,7 @@
 
     <EditText
         android:id="@+id/txtYear"
-        android:layout_width="80dp"
+        android:layout_width="55dp"
         android:layout_height="51dp"
         android:ems="10"
         android:hint="YYYY"

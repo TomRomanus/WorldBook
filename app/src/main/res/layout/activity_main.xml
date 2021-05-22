@@ -15,8 +15,9 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/txtPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWorldView" />
 
     <EditText
         android:id="@+id/txtPassword"
@@ -70,4 +71,16 @@
         android:text="Enter your password"
         app:layout_constraintBottom_toTopOf="@+id/txtPassword"
         app:layout_constraintStart_toStartOf="@+id/txtPassword" />
+
+    <TextView
+        android:id="@+id/txtWorldView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="WorldView"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtEnterUsernameMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
