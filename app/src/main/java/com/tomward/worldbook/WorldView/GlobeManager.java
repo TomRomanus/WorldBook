@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.tomward.worldbook.PropertiesSingleton;
 import com.tomward.worldbook.R;
 
 
@@ -34,9 +35,12 @@ public class GlobeManager extends AppCompatActivity {
     {
         try {
             Intent intent = new Intent(mContext, CheckCountryName.class);
-            intent.putExtra("CountryName", countryName);
-            intent.putExtra("UserName", userName);
             mContext.startActivity(intent);
+
+            PropertiesSingleton propertiesSingleton = PropertiesSingleton.THE_INSTANCE;
+            propertiesSingleton.setUserName(userName);
+            propertiesSingleton.setCountryName(countryName);
+            propertiesSingleton.setKey(userName+countryName);
 
         }
         catch (Exception e){

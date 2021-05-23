@@ -13,11 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tomward.worldbook.PropertiesSingleton;
 import com.tomward.worldbook.R;
 import com.tomward.worldbook.WorldView.GlobeManager;
 
@@ -31,9 +30,10 @@ public class CountryActivity extends AppCompatActivity {
     private TextView txtMonth;
     private TextView txtYear;
 
-    private String key = "";
-    private String userName = "";
-    private String countryName = "";
+    private final PropertiesSingleton propertiesSingleton = PropertiesSingleton.THE_INSTANCE;
+    private final String userName = propertiesSingleton.getUserName();
+    private final String countryName = propertiesSingleton.getCountryName();
+    private final String key = propertiesSingleton.getKey();
     private float rating = 0.0f;
 
     private static final String SAVE_URL = "https://studev.groept.be/api/a20sd101/saveToWorldBook/";
@@ -58,10 +58,6 @@ public class CountryActivity extends AppCompatActivity {
 
         context = this;
 
-        Bundle extras = getIntent().getExtras();
-        key = extras.getString("Key");
-        userName = extras.getString("UserName");
-        countryName = extras.getString("CountryName");
         txtCountryName.setText(countryName);
 
         requestQueue = Volley.newRequestQueue(this);
@@ -118,11 +114,7 @@ public class CountryActivity extends AppCompatActivity {
                     startActivity(intentB);
                     break;
                 case 'P':
-                    Intent intentP = new Intent(context, PicturesActivity.class);
-                    intentP.putExtra("CountryName", countryName);
-                    intentP.putExtra("Key", key);
-                    intentP.putExtra("UserName", userName);
-                    startActivity(intentP);
+                    startActivity(new Intent(context, PicturesActivity.class));
                     break;
                 case 'S':
                     Toast.makeText(CountryActivity.this, "Saved", Toast.LENGTH_SHORT).show();

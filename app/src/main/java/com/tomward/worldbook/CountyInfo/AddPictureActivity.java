@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.tomward.worldbook.PropertiesSingleton;
 import com.tomward.worldbook.R;
 
 public class AddPictureActivity extends AppCompatActivity{
@@ -32,9 +33,10 @@ public class AddPictureActivity extends AppCompatActivity{
     Bitmap bitmap;
     ProgressDialog progressDialog;
 
-    private String countryName ="";
-    private String key = "";
-    private String userName = "";
+    private final PropertiesSingleton propertiesSingleton = PropertiesSingleton.THE_INSTANCE;
+    private final String userName = propertiesSingleton.getUserName();
+    private final String countryName = propertiesSingleton.getCountryName();
+    private final String key = propertiesSingleton.getKey();
 
     private Uri filePath;
     private static final String TAG = "AddPictureActivity";
@@ -51,11 +53,6 @@ public class AddPictureActivity extends AppCompatActivity{
         image = findViewById(R.id.image);
         choose = findViewById(R.id.choose);
         upload = findViewById(R.id.upload);
-
-        Bundle extras = getIntent().getExtras();
-        key = extras.getString("Key");
-        userName = extras.getString("UserName");
-        countryName = extras.getString("CountryName");
 
         storageReference = FirebaseStorage.getInstance().getReference();
         requestQueue = Volley.newRequestQueue(this);
@@ -128,10 +125,6 @@ public class AddPictureActivity extends AppCompatActivity{
     }
 
     private void goToPreviousActivity() {
-        Intent intent =new Intent(this, PicturesActivity.class);
-        intent.putExtra("CountryName", countryName);
-        intent.putExtra("Key", key);
-        intent.putExtra("UserName", userName);
-        startActivity(intent);
+        startActivity(new Intent(this, PicturesActivity.class));
     }
 }

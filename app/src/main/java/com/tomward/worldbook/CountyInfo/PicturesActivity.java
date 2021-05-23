@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.tomward.worldbook.PropertiesSingleton;
 import com.tomward.worldbook.R;
 
 import org.json.JSONException;
@@ -30,9 +31,8 @@ public class PicturesActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-    private String countryName ="";
-    private String key = "";
-    private String userName = "";
+    private final PropertiesSingleton propertiesSingleton = PropertiesSingleton.THE_INSTANCE;
+    private final String key = propertiesSingleton.getKey();
 
     private static final String TAG = "PicturesActivity";
     private static final String GETIMAGE_URL = "https://studev.groept.be/api/a20sd101/getImage/";
@@ -49,11 +49,6 @@ public class PicturesActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-
-        Bundle extras = getIntent().getExtras();
-        key = extras.getString("Key");
-        userName = extras.getString("UserName");
-        countryName = extras.getString("CountryName");
 
         uploads = new ArrayList<>();
         requestQueue = Volley.newRequestQueue(this);
@@ -74,11 +69,7 @@ public class PicturesActivity extends AppCompatActivity {
     }
 
     private void saveData(Class nextClass) {
-        Intent intent =new Intent(this, nextClass);
-        intent.putExtra("CountryName", countryName);
-        intent.putExtra("Key", key);
-        intent.putExtra("UserName", userName);
-        startActivity(intent);
+        startActivity(new Intent(this, nextClass));
     }
 
 

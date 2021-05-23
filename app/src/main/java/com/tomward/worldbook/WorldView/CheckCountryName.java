@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.tomward.worldbook.PropertiesSingleton;
 import com.tomward.worldbook.CountyInfo.CountryActivity;
 import com.tomward.worldbook.R;
 
 public class CheckCountryName extends AppCompatActivity {
-    private String userName = "";
-    private String countryName = "";
+    private final PropertiesSingleton propertiesSingleton = PropertiesSingleton.THE_INSTANCE;
+    private final String userName = propertiesSingleton.getUserName();
+    private final String countryName = propertiesSingleton.getCountryName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,25 +22,16 @@ public class CheckCountryName extends AppCompatActivity {
         setContentView(R.layout.activity_check_country_name);
 
         TextView txtCountryIn = findViewById(R.id.txtCountryIn);
-
-        Bundle extras = getIntent().getExtras();
-        userName = extras.getString("UserName");
-        countryName = extras.getString("CountryName");
         txtCountryIn.setText(countryName);
     }
 
     public void onBtnNextCheckCountryName_Clicked(View caller) {
-        String key = userName + countryName;
-
-        Intent intent =new Intent(this, CountryActivity.class);
-        intent.putExtra("CountryName", countryName);
-        intent.putExtra("Key", key);
-        intent.putExtra("UserName", userName);
-        startActivity(intent);
+        startActivity(new Intent(this, CountryActivity.class));
     }
 
     public void onBtnBackCheckCountryName_Clicked(View caller) {
         Intent intent = new Intent(this, GlobeManager.class);
+        intent.putExtra("UserName", userName);
         startActivity(intent);
     }
 }
