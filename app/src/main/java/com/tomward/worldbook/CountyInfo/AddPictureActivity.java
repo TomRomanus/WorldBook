@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -34,12 +33,9 @@ public class AddPictureActivity extends AppCompatActivity{
     ProgressDialog progressDialog;
 
     private final PropertiesSingleton propertiesSingleton = PropertiesSingleton.THE_INSTANCE;
-    private final String userName = propertiesSingleton.getUserName();
-    private final String countryName = propertiesSingleton.getCountryName();
     private final String key = propertiesSingleton.getKey();
 
     private Uri filePath;
-    private static final String TAG = "AddPictureActivity";
     private static final String ADDIMAGE_URL = "https://studev.groept.be/api/a20sd101/AddImage/";
 
     private StorageReference storageReference;
@@ -70,7 +66,7 @@ public class AddPictureActivity extends AppCompatActivity{
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 image.setImageBitmap(bitmap);
             } catch (Exception e) {
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -108,14 +104,14 @@ public class AddPictureActivity extends AppCompatActivity{
 
             //adding reference to database
             StringRequest addImageRequest = new StringRequest(Request.Method.GET, ADDIMAGE_URL + url + "/" + key, response -> goToPreviousActivity(), e -> {
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
                 Toast.makeText(AddPictureActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             });
             requestQueue.add(addImageRequest);
         });
         uploadTask.addOnFailureListener(e -> {
             progressDialog.dismiss();
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         });
         uploadTask.addOnProgressListener(taskSnapshot -> {

@@ -2,7 +2,6 @@ package com.tomward.worldbook;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.tomward.worldbook.WorldView.GlobeManager;
@@ -25,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtPassword;
 
     private static final String GETUSER_URL = "https://studev.groept.be/api/a20sd101/getUser/";
-    private static final String TAG = "MainActivity";
 
     private RequestQueue requestQueue;
 
@@ -46,21 +42,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void onBtnLogin_Clicked(View caller) {
         userName = txtUserName.getText().toString().toLowerCase().trim();
-        password = txtPassword.getText().toString().toLowerCase().trim().hashCode();
+        password = txtPassword.getText().toString().trim().hashCode();
 
-        String getUserURL = GETUSER_URL + userName;
-        JsonArrayRequest getUserRequest = new JsonArrayRequest(Request.Method.GET,getUserURL,null, response -> {
+        JsonArrayRequest getUserRequest = new JsonArrayRequest(Request.Method.GET,GETUSER_URL + userName,null, response -> {
             try {
                 JSONObject o = response.getJSONObject(0);
                 passwordDB = o.getInt("Password");
                 checkPasswords();
             } catch (JSONException e) {
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
                 Toast.makeText(MainActivity.this, "Username not found", Toast.LENGTH_LONG).show();
             }
         }, e -> {
             Toast.makeText(MainActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show();
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
         });
         requestQueue.add(getUserRequest);
     }

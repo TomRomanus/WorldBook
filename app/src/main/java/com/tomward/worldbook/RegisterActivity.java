@@ -2,7 +2,6 @@ package com.tomward.worldbook;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +23,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private static final String ADDUSER_URL = "https://studev.groept.be/api/a20sd101/AddUser/";
     private static final String GETUSER_URL = "https://studev.groept.be/api/a20sd101/getUser/";
-    private static final String TAG = "RegisterActivity";
 
     private RequestQueue requestQueue;
 
@@ -53,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
             String registerURL = ADDUSER_URL + userName + "/" + password;
             StringRequest registerRequest = new StringRequest(Request.Method.GET, registerURL, response -> goToNextActivity(userName), e -> {
                 Toast.makeText(RegisterActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
             });
 
             String getUserURL = GETUSER_URL + userName;
@@ -70,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }, e -> {
                 Toast.makeText(RegisterActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show();
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
             });
             requestQueue.add(getUserRequest);
         }

@@ -3,7 +3,6 @@ package com.tomward.worldbook.CountyInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -39,10 +38,9 @@ public class CountryActivity extends AppCompatActivity {
     private static final String SAVE_URL = "https://studev.groept.be/api/a20sd101/saveToWorldBook/";
     private static final String GET_URL = "https://studev.groept.be/api/a20sd101/getFromWorldBook/";
     private static final String UPDATE_URL = "https://studev.groept.be/api/a20sd101/updateInWorldBook/";
-    private static final String TAG = "CountryActivity";
 
     private RequestQueue requestQueue;
-    private Context context;
+    private final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +48,12 @@ public class CountryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_country);
 
         TextView txtCountryName = findViewById(R.id.txtCountryName);
+        txtCountryName.setText(countryName);
         ratingBar = findViewById(R.id.ratingBar);
         txtInfo = findViewById(R.id.txtInfo);
         txtInfo.setSingleLine(false);
         txtMonth = findViewById(R.id.txtMonth);
         txtYear = findViewById(R.id.txtYear);
-
-        context = this;
-
-        txtCountryName.setText(countryName);
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -76,7 +71,7 @@ public class CountryActivity extends AppCompatActivity {
                 else txtInfo.setText(info);
 
             } catch (JSONException e) {
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
             }
         }, error -> Toast.makeText(CountryActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show());
         requestQueue.add(setRequest);
@@ -122,7 +117,7 @@ public class CountryActivity extends AppCompatActivity {
             }
         }, e1 -> {
             Toast.makeText(CountryActivity.this, "Unable to save, please try again", Toast.LENGTH_LONG).show();
-            Log.d(TAG, e1.getMessage());
+            e1.printStackTrace();
         });
 
         String updateURL = UPDATE_URL +
@@ -134,7 +129,7 @@ public class CountryActivity extends AppCompatActivity {
 
         StringRequest updateRequest = new StringRequest(Request.Method.GET, updateURL, response -> requestQueue.add(saveRequest), e12 -> {
             Toast.makeText(CountryActivity.this, "Unable to save, please try again", Toast.LENGTH_LONG).show();
-            Log.d(TAG, e12.getMessage());
+            e12.printStackTrace();
         });
         requestQueue.add(updateRequest);
     }

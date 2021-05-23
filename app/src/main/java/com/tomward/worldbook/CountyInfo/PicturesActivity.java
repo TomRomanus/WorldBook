@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -34,7 +33,6 @@ public class PicturesActivity extends AppCompatActivity {
     private final PropertiesSingleton propertiesSingleton = PropertiesSingleton.THE_INSTANCE;
     private final String key = propertiesSingleton.getKey();
 
-    private static final String TAG = "PicturesActivity";
     private static final String GETIMAGE_URL = "https://studev.groept.be/api/a20sd101/getImage/";
 
     private RequestQueue requestQueue;
@@ -57,7 +55,6 @@ public class PicturesActivity extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         getImagesFromDB();
-
     }
 
     public void onBtnBackPictures_Clicked(View caller) {
@@ -93,12 +90,12 @@ public class PicturesActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 progressDialog.dismiss();
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
                 Toast.makeText(PicturesActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }, e -> {
             progressDialog.dismiss();
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             Toast.makeText(PicturesActivity.this, "Unable to communicate with the server", Toast.LENGTH_LONG).show();
         });
         requestQueue.add(getImageRequest);

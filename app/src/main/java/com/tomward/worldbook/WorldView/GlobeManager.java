@@ -1,5 +1,6 @@
 package com.tomward.worldbook.WorldView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,20 +15,19 @@ public class GlobeManager extends AppCompatActivity {
 
     public static String countryName;
     public static String userName;
+    @SuppressLint("StaticFieldLeak")
     public static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle extras = getIntent().getExtras();
-        userName = extras.getString("UserName");
+        userName = getIntent().getExtras().getString("UserName");
         mContext = this;
         setContentView(R.layout.activity_globe);
     }
     public static void  setCountryName(String newCountryName)
     {
         countryName = newCountryName;
-        System.out.println(countryName);
         startCountryView();
     }
 

@@ -3,7 +3,6 @@ package com.tomward.worldbook.CountyInfo;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +20,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     private final Context context;
     private final List<Upload> uploads;
-    private String key;
+    private final String key;
     private final StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-
-    private static final String TAG = "MyAdapter";
 
     public MyAdapter(Context context, List<Upload> uploads, String key) {
         this.uploads = uploads;
@@ -50,9 +47,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             islandRef.getBytes(FIVE_MEGABYTES).addOnSuccessListener(bytes -> {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 holder.imageView.setImageBitmap(bitmap);
-            }).addOnFailureListener(e -> Log.d(TAG, e.getMessage()));
+            }).addOnFailureListener(Throwable::printStackTrace);
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
         }
     }
 
