@@ -49,6 +49,7 @@ public class AddPictureActivity extends AppCompatActivity{
         image = findViewById(R.id.image);
         choose = findViewById(R.id.choose);
         upload = findViewById(R.id.upload);
+        upload.setEnabled(false);
 
         storageReference = FirebaseStorage.getInstance().getReference();
         requestQueue = Volley.newRequestQueue(this);
@@ -65,6 +66,7 @@ public class AddPictureActivity extends AppCompatActivity{
                 //getting image from gallery
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 image.setImageBitmap(bitmap);
+                upload.setEnabled(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
